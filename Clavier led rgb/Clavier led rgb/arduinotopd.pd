@@ -1,0 +1,31 @@
+#N canvas 507 30 1376 826 10;
+#X msg 316 145 devices;
+#X obj 417 190 comport 9600;
+#X msg 169 140 close;
+#X msg 199 194 open 4;
+#X obj 414 290 from_ascii_code 13;
+#X floatatom 437 485 5 0 0 0 - - -, f 5;
+#X obj 430 536 mtof;
+#X obj 456 671 dac~ 1 2;
+#X obj 429 586 osc~;
+#X obj 551 546 hsl 128 15 0 1 0 0 empty empty empty -2 -8 0 10 -262144
+-1 -1 6500 1;
+#X floatatom 548 566 5 0 0 0 - - -, f 5;
+#X obj 442 623 *~ 0.5;
+#X obj 524 471 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
+1;
+#X obj 428 394 route lecture;
+#X connect 0 0 1 0;
+#X connect 1 0 4 0;
+#X connect 2 0 1 0;
+#X connect 3 0 1 0;
+#X connect 4 0 13 0;
+#X connect 5 0 6 0;
+#X connect 6 0 8 0;
+#X connect 8 0 11 0;
+#X connect 9 0 10 0;
+#X connect 10 0 11 1;
+#X connect 11 0 7 0;
+#X connect 11 0 7 1;
+#X connect 12 0 11 1;
+#X connect 13 0 5 0;
