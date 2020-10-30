@@ -1,0 +1,7 @@
+
+# ignore archives, she must be uploaded to the release section
+*.zip
+
+# ignore some hiddeen files
+Thumbs.db
+.DS_Store
