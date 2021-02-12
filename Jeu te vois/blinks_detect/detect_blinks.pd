@@ -1,0 +1,117 @@
+#N canvas 254 23 1292 897 10;
+#X obj 744 126 netreceive -u -b;
+#X msg 744 75 listen 5000;
+#X msg 762 99 listen 0;
+#X text 825 98 stop listening;
+#X obj 744 198 oscparse;
+#X obj 744 241 route user1 user2;
+#X obj 760 717 tgl 50 0 empty empty empty 17 7 0 10 -4034 -1 -1 0 1
+;
+#X obj 760 671 spigot;
+#X obj 793 649 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -66577
+0 1;
+#X obj 625 312 hradio 15 1 0 4 empty empty empty 0 -8 0 10 -262144
+-1 -1 2;
+#X msg 627 524 stop;
+#X obj 600 494 t b b;
+#X obj 600 547 delay 5000;
+#X obj 744 51 loadbang;
+#X obj 843 267 print WRONG USER;
+#X obj 744 219 list trim;
+#X obj 760 793 ctlout 1 1;
+#X floatatom 625 353 5 0 0 0 - - -, f 5;
+#X obj 625 332 - 1;
+#X text 463 312 SIMULATE USER1 STATUS -->;
+#X text 906 344 <-- SIMULATE USER2 STATUS;
+#X text 859 241 route OSC message according to sender (user 1 or user2)
+;
+#X text 577 737 BLENDER STATUS ON or OFF -->;
+#X obj 837 346 hradio 15 1 0 4 empty empty empty 0 -8 0 10 -262144
+-1 -1 2;
+#X floatatom 837 387 5 0 0 0 - - -, f 5;
+#X obj 837 366 - 1;
+#X text 823 647 open or close [spigot] object \, meaning pass or block
+input messages, f 30;
+#X text 522 76 listen for OSC message on port 5000;
+#X text 860 126 UDP packets \, binary output;
+#X obj 11 9 cnv 15 460 220 empty empty PROTOCOL 20 20 0 14 -228856
+-66577 0;
+#X text 28 50 - 0 = yeux fermés - 1 = yeux ouverts - 2 = yeux ouverts
+, f 18;
+#X text 25 102 - User1 : Si “blink” une fois (0 -> 1) -> allumer
+pendant 5 secondes le blender -> après il s’éteint, f 52;
+#X text 25 127 Non détecté = Blender éteint;
+#X text 25 155 - User2 : Si il a les yeux ouverts (1) -> envoyer du
+courant électrique dans le blender -> Si il a les yeux fermés (0)
+-> éteindre le courant, f 52;
+#X text 25 191 Non détecté = Pas de courant dans le blender;
+#X text 341 547 send 0 (turn OFF) after 5000 milliseconds;
+#X text 404 494 first \, stop the previous delay \, before start a
+new one, f 31;
+#X obj 793 447 >= 1;
+#X text 833 445 if input is superior or equal to 1 set 1 \, otherwise
+set 0, f 41;
+#X obj 836 547 sel 0;
+#X text 880 548 force turn OFF;
+#X obj 760 772 * 127;
+#X text 833 794 MIDI OUT to the controller number 1 \, channel 1;
+#X text 320 329 +1 (blink) \, turn ON the blender for 5 seconds \,
+-1 (not detected) \, turn OFF the blender, f 46;
+#X text 143 60 (blink);
+#X text 144 72 (mais pas compté car pas fermés assez longtemps);
+#X text 930 365 1 (eyes opened) \, pass user1's messages to midi output
+0 (eyes closed) \, block user1's messages, f 54;
+#X obj 684 446 sel -1 1;
+#X msg 729 609 1;
+#X msg 683 609 0;
+#X text 245 446 route '-1' to the first output \, '1' to the second
+\, otherwise do nothing, f 71;
+#X obj 134 486 bng 70 250 50 0 empty empty BLINK 20 35 0 10 -262144
+-258113 -1;
+#X obj 55 485 bng 70 250 50 0 empty empty CLOSED 18 35 0 10 -262144
+-4032 -1;
+#X obj 96 425 sel 0 1;
+#X floatatom 704 414 5 0 0 0 - - -, f 5;
+#X obj 515 235 spigot;
+#X obj 548 210 tgl 15 0 empty empty verbose 17 7 0 10 -4034 -1 -1 0
+1;
+#X obj 515 256 print OSC MESSAGE ::;
+#X connect 0 0 4 0;
+#X connect 1 0 0 0;
+#X connect 2 0 0 0;
+#X connect 4 0 15 0;
+#X connect 5 0 54 0;
+#X connect 5 1 37 0;
+#X connect 5 2 14 0;
+#X connect 6 0 41 0;
+#X connect 7 0 6 0;
+#X connect 8 0 7 1;
+#X connect 9 0 18 0;
+#X connect 10 0 12 0;
+#X connect 11 0 12 0;
+#X connect 11 1 10 0;
+#X connect 12 0 49 0;
+#X connect 13 0 1 0;
+#X connect 15 0 5 0;
+#X connect 15 0 55 0;
+#X connect 17 0 47 0;
+#X connect 18 0 17 0;
+#X connect 23 0 25 0;
+#X connect 24 0 37 0;
+#X connect 25 0 24 0;
+#X connect 37 0 8 0;
+#X connect 37 0 39 0;
+#X connect 39 0 49 0;
+#X connect 41 0 16 0;
+#X connect 47 0 49 0;
+#X connect 47 0 10 0;
+#X connect 47 1 48 0;
+#X connect 47 1 11 0;
+#X connect 48 0 7 0;
+#X connect 49 0 6 0;
+#X connect 53 0 52 0;
+#X connect 53 1 51 0;
+#X connect 54 0 47 0;
+#X connect 54 0 53 0;
+#X connect 55 0 57 0;
+#X connect 56 0 55 1;
